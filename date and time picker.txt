@@ -1,0 +1,112 @@
+//mainactivity.java//
+
+package com.example.pickerviews;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+    TextView date,time;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        date=findViewById(R.id.date);
+        time=findViewById(R.id.time);
+    }
+
+    public void showDate(View view) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog mydatepicker=new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                           String dateoutput=day+"/"+month+"/"+year;
+                           date.setText(dateoutput);
+                    }
+                },year,month,day);
+        mydatepicker.show();
+    }
+    public void showTime(View view) {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
+        TimePickerDialog timepicker=new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                          String timeoutput=hour+":"+min;
+                          time.setText(timeoutput);
+                    }
+                },hour,min,false);
+        timepicker.show();
+    }
+}
+
+
+
+//activity_main.xml//
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:onClick="showDate"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date "
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Time"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:onClick="showTime"
+        />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time "
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+</LinearLayout>
